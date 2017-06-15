@@ -1,4 +1,4 @@
-自定义view属性 用于属性动画
+//自定义view属性 用于属性动画
  private static final Property<View, Integer> VIEW_LAYOUT_HEIGHT_PROPERTY =
             new Property<View, Integer>(Integer.class, "height") {
                 @Override
