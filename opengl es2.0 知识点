@@ -1,1 +1,4 @@
 透视投影 ：视椎体的z轴是从-1开始 
+//opengl 混合
+GLES20.glBlendFuncSeparate(GLES20.GL_ONE,GLES20.GL_ONE_MINUS_SRC_ALPHA,
+                GLES20.GL_ONE_MINUS_DST_ALPHA,GLES20.GL_ONE);
