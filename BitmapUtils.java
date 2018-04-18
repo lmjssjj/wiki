@@ -24,3 +24,18 @@
 		canvas.drawBitmap(bitmap, rect, rect, paint); 
 		return output; 
 	}
+public static int saveBitmap(String path,Bitmap bitmap){
+		int result=-1;
+		try {
+			FileOutputStream fos=new FileOutputStream(new File(path));
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+			fos.flush();
+			fos.close();
+			result=1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
