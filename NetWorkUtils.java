@@ -61,5 +61,20 @@ public class NetWorkUtils{
         return netType;
     }
 
-
+    public static int getDefalutDataID(Context context) {
+        SubscriptionManager subscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+        int subscriberId = 0;
+        if (Build.VERSION.SDK_INT > 24) {
+            subscriberId = SubscriptionManager.getDefaultDataSubscriptionId();
+        } else {
+            try {
+                Class cls = SubscriptionManager.class.getClass();
+                Method method = cls.getDeclaredMethod("getDefaultDataSubId");
+                subscriberId = (Integer) method.invoke(subscriptionManager);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return subscriberId;
+    }
 }
