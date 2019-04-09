@@ -1,0 +1,3 @@
+adb shell settings get global device_demo_mode  //获取Settings.Global.DEVICE_DEMO_MODE 的值
+adb shell
+dpm set-device-owner --name Test com.example.android.deviceowner/.DeviceOwnerReceiver//设置应用为DeviceOwner
