@@ -2,3 +2,6 @@ adb shell settings get global device_demo_mode  //获取Settings.Global.DEVICE_D
 adb shell settings put global device_demo_mode 1  //设置Settings.Global.DEVICE_DEMO_MODE 的值
 adb shell
 dpm set-device-owner --name Test com.example.android.deviceowner/.DeviceOwnerReceiver//设置应用为DeviceOwner
+
+
+adb shell "head -1 /system/etc/firmware/ROMv2_lm_patch_1_1_hdr.bin"  //查看BT固件版本
