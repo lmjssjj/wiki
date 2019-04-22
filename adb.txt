@@ -5,3 +5,5 @@ dpm set-device-owner --name Test com.example.android.deviceowner/.DeviceOwnerRec
 
 
 adb shell "head -1 /system/etc/firmware/ROMv2_lm_patch_1_1_hdr.bin"  //查看BT固件版本
+
+
