@@ -8,3 +8,5 @@ adb shell "head -1 /system/etc/firmware/ROMv2_lm_patch_1_1_hdr.bin"  //查看BT�
 
 adb shell getprop "ro.bdfun.inner_sw_version"
 
+adb shell setprop persist.vendor.connsys.coredump.mode 2
+
