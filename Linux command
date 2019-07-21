@@ -1,3 +1,84 @@
+Ubuntu linux 环境基本使用
+
+开启一个终端
+CTR+ALT+t
+
+关闭一个终端
+ALT+f4        exit
+
+shell：单词语义贝壳，计算机语义命令解释器。
+shell提示符
+#：一般表示你是超级用户，root
+$:一般表示你是普通用户
+
+清除屏幕
+clear  快捷键CTR+l
+
+察看当前目录下有哪些文件
+ls
+察看当前目录  
+pwd
+
+自动补齐路径和命令
+tab键
+
+进入目录
+cd  目录路径（绝对路径，相对路径）
+创建目录
+mkdir  		目录名
+rmdir  		删除空目录
+rm -r  		删除非空目录
+rm  		删除一个文件
+
+
+回家命令
+cd
+
+根目录讲解
+/   称之为根目录
+
+切换到字符控制台
+CTR+ALT+SHIFT+（f1-f6）
+切换回图形界面
+ALT+f7
+
+在命令行下翻屏
+shift+pgup
+shift+pgdn
+
+进程管理命令
+察看进程信息
+ps aux
+kill -9  进程号
+kill -SIGKILL  进程号
+终止当前shell里面的前台进程
+ctr+c	
+
+根据文件名查找文件
+find 路径  -name  ”文件名“
+
+根据文件内容查找文件
+grep "内容"  路径  -R(递归查找的意思)
+
+tar.gz打包命令
+tar zcvf test.tar.gz  test
+
+tar.gz解包命令
+tar zxvf test.tar.gz
+tar zxvf test.tar.gz  -C 指定目录
+
+tar打包命令
+tar cvf test.tar  test
+
+tar解包命令
+tar xvf test.tar
+tar xvf test.tar  -C 指定目录
+
+bz2包打包命令
+tar jcvf test.bz2  test
+bz2包解包命令
+tar jxvf test.bz2
+tar jxvf test.bz2  -C 指定目录
 
 grep 'name' -r /
 grep '指定内容' -r 目录
