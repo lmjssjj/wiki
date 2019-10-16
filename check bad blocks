@@ -1,0 +1,413 @@
+Android flash bad blocks check:
+1、	查看手机分区的挂载(view the mount of the phone partition)
+A)、df 命令(command)：
+a)、adb shell df(直接adb 命令使用)
+ 
+b)、adb shell 
+df
+ 
+
+B)、mount 命令(command)：
+a)、adb shell mount
+ 
+b)、adb shell 
+mount
+ 
+
+C)、查看proc/mounts
+adb shell mounts
+ 
+
+adb shell
+	cat proc/mounts
+ 
+	D)、view block name
+      adb shell cat /proc/partitions
+cat /proc/partitions
+ 
+2、	badblocks 命令
+位于system/bin or system/xbin  目录下的命令； 
+检测对应的分区命令：
+-b<区块大小> 指定磁盘的区块大小，单位为字节。
+-o<输出文件> 将检查的结果写入指定的输出文件。
+-s 在检查时显示进度。
+-v 执行时显示详细的信息。
+-w 在检查时，执行写入测试。(此参数必须在umount 下才能使用)
+
+Options:
+
+-w: do a destructive write test
+-s: show progress
+-v: be "verbose" and output bad sectors detected to stdout
+Additional options you might consider:
+
+-b number: specify the block size of the hard disk which can significantly improve testing time. (# tune2fs -l partition)
+-p number: run through the extensive four pass test number of sequent iterations
+-o /path/to/output-file: print bad sectors to output-file instead of stdout
+-t test_pattern: Specify a pattern. See below.
+
+a)、badblocks -s -v /dev/block/dm-1
+ 
+ 
+
+badblocks 读写检测(Read and write detection)
+b)、badblocks -s -v -w /dev/block/mmcblk0p36
+
+如果分区已经被挂载会提示：
+If the partition has been mounted, it will prompt
+ 
+对分区取消挂载
+Unmount the partition
+
+umount /cache
+ 
+
+完整操作如下图：
+The complete operation is as follows:
+
+ 
+
+c)、保存日志(Save the log)
+badblocks -s -v -w /dev/block/mmcblk0p36 > /mnt/sdcard/info_log.txt     
+ 
+
+d)、使用umount命令时,该分区不能正在使用否则会不成功
+When using the umount command, the partition cannot be used or it will not succeed.
+ 
+
+3、	e2fsck命令
+e2fsck命令用于检查第二扩展文件系统的完整性，通过适当的选项可以尝试修复出现的错误。
+
+e2fsck执行后的传回值及代表意义如下：
+
+0 没有任何错误发生。
+1 文件系统发生错误，并且已经修正。
+2 文件系统发生错误，并且已经修正。
+4 文件系统发生错误，但没有修正。
+8 运作时发生错误。
+16 使用的语法发生错误。
+128 共享的函数库发生错误。
+
+EXIT CODE  top
+The exit code returned by e2fsck is the sum of the following
+       conditions:
+0    - No errors
+1    - File system errors corrected
+2    - File system errors corrected, system should
+                   be rebooted
+4    - File system errors left uncorrected
+8    - Operational error
+16   - Usage or syntax error
+32   - E2fsck canceled by user request
+   128  - Shared library error
+
+
+使用该命令：e2fsck(选项)(参数)
+
+选项：
+-a：不询问使用者意见，便自动修复文件系统；
+-b<superblock>：指定superblock，而不使用预设的superblock；
+-B<区块大小>：指定区块的大小，单位为字节；
+-c：一并执行badblocks，以标示损坏的区块；
+-C：将检查过程的信息完整记录在file descriptor中，使得整个检查过程都能完整监控；
+-d：显示排错信息；
+-f：即使文件系统没有错误迹象，仍强制地检查正确性；
+-F：执行前先清除设备的缓冲区；
+-l<文件>：将文件中指定的区块加到损坏区块列表；
+-L<文件>：先清除损坏区块列表，再将文件中指定的区块加到损坏区块列表。因此损坏区块列表的区块跟文件中指定的区块是一样的；
+-n：以只读模式开启文件系统，并采取非互动方式执行，所有的问题对话均设置以"no"回答；
+-p：不询问使用者意见，便自动修复文件系统；
+-r：此参数只为了兼容性而存在，并无实际作用；
+-s：如果文件系统的字节顺序不适当，就交换字节顺序，否则不做任何动作；
+-S：不管文件系统的字节顺序，一律交换字节顺序；
+-t：显示时间信息；
+-v：执行时显示详细的信息；
+-V：显示版本信息；
+-y：采取非互动方式执行，所有的问题均设置以"yes"回答。
+
+参数
+文件系统或者分区：指定文件系统或者分区所对应的设备文件名。
+
+用此命令检测是否坏块其实也是调用badblocks命令
+
+
+OPTIONS         top
+       -a     This option does the same thing as the -p option.  It is
+              provided for backwards compatibility only; it is suggested
+              that people use -p option whenever possible.
+
+       -b superblock
+              Instead of using the normal superblock, use an alternative
+              superblock specified by superblock.  This option is normally
+              used when the primary superblock has been corrupted.  The
+              location of backup superblocks is dependent on the
+              filesystem's blocksize, the number of blocks per group, and
+              features such as sparse_super.
+
+              Additional backup superblocks can be determined by using the
+              mke2fs program using the -n option to print out where the
+              superblocks exist, supposing mke2fs is supplied with arguments
+              that are consistent with the filesystem's layout (e.g.
+              blocksize, blocks per group, sparse_super, etc.).
+
+              If an alternative superblock is specified and the filesystem
+              is not opened read-only, e2fsck will make sure that the
+              primary superblock is updated appropriately upon completion of
+              the filesystem check.
+
+       -B blocksize
+              Normally, e2fsck will search for the superblock at various
+              different block sizes in an attempt to find the appropriate
+              block size.  This search can be fooled in some cases.  This
+              option forces e2fsck to only try locating the superblock at a
+              particular blocksize.  If the superblock is not found, e2fsck
+              will terminate with a fatal error.
+
+       -c     This option causes e2fsck to use badblocks(8) program to do a
+              read-only scan of the device in order to find any bad blocks.
+              If any bad blocks are found, they are added to the bad block
+              inode to prevent them from being allocated to a file or
+              directory.  If this option is specified twice, then the bad
+              block scan will be done using a non-destructive read-write
+              test.
+
+       -C fd  This option causes e2fsck to write completion information to
+              the specified file descriptor so that the progress of the
+              filesystem check can be monitored.  This option is typically
+              used by programs which are running e2fsck.  If the file
+              descriptor number is negative, then absolute value of the file
+              descriptor will be used, and the progress information will be
+              suppressed initially.  It can later be enabled by sending the
+              e2fsck process a SIGUSR1 signal.  If the file descriptor
+              specified is 0, e2fsck will print a completion bar as it goes
+              about its business.  This requires that e2fsck is running on a
+              video console or terminal.
+
+       -d     Print debugging output (useless unless you are debugging
+              e2fsck).
+
+       -D     Optimize directories in filesystem.  This option causes e2fsck
+              to try to optimize all directories, either by reindexing them
+              if the filesystem supports directory indexing,  or by sorting
+              and compressing directories for smaller directories, or for
+              filesystems using traditional linear directories.
+
+              Even without the -D option, e2fsck may sometimes optimize a
+              few directories --- for example, if directory indexing is
+              enabled and a directory is not indexed and would benefit from
+              being indexed, or if the index structures are corrupted and
+              need to be rebuilt.  The -D option forces all directories in
+              the filesystem to be optimized.  This can sometimes make them
+              a little smaller and slightly faster to search, but in
+              practice, you should rarely need to use this option.
+
+              The -D option will detect directory entries with duplicate
+              names in a single directory, which e2fsck normally does not
+              enforce for performance reasons.
+
+       -E extended_options
+              Set e2fsck extended options.  Extended options are comma
+              separated, and may take an argument using the equals ('=')
+              sign.  The following options are supported:
+
+                   ea_ver=extended_attribute_version
+                          Set the version of the extended attribute blocks
+                          which e2fsck will require while checking the
+                          filesystem.  The version number may be 1 or 2.
+                          The default extended attribute version format is
+                          2.
+
+                   journal_only
+                          Only replay the journal if required, but do not
+                          perform any further checks or repairs.
+
+                   fragcheck
+                          During pass 1, print a detailed report of any
+                          discontiguous blocks for files in the filesystem.
+
+                   discard
+                          Attempt to discard free blocks and unused inode
+                          blocks after the full filesystem check (discarding
+                          blocks is useful on solid state devices and sparse
+                          / thin-provisioned storage). Note that discard is
+                          done in pass 5 AFTER the filesystem has been fully
+                          checked and only if it does not contain
+                          recognizable errors. However there might be cases
+                          where e2fsck does not fully recognize a problem
+                          and hence in this case this option may prevent you
+                          from further manual data recovery.
+
+                   nodiscard
+                          Do not attempt to discard free blocks and unused
+                          inode blocks. This option is exactly the opposite
+                          of discard option. This is set as default.
+
+                   no_optimize_extents
+                          Do not offer to optimize the extent tree by
+                          eliminating unnecessary width or depth.  This can
+                          also be enabled in the options section of
+                          /etc/e2fsck.conf.
+
+                   optimize_extents
+                          Offer to optimize the extent tree by eliminating
+                          unnecessary width or depth.  This is the default
+                          unless otherwise specified in /etc/e2fsck.conf.
+
+                   inode_count_fullmap
+                          Trade off using memory for speed when checking a
+                          file system with a large number of hard-linked
+                          files.  The amount of memory required is
+                          proportional to the number of inodes in the file
+                          system.  For large file systems, this can be
+                          gigabytes of memory.  (For example, a 40TB file
+                          system with 2.8 billion inodes will consume an
+                          additional 5.7 GB memory if this optimization is
+                          enabled.)  This optimization can also be enabled
+                          in the options section of /etc/e2fsck.conf.
+
+                   no_inode_count_fullmap
+                          Disable the inode_count_fullmap optimization.
+                          This is the default unless otherwise specified in
+                          /etc/e2fsck.conf.
+
+                   readahead_kb
+                          Use this many KiB of memory to pre-fetch metadata
+                          in the hopes of reducing e2fsck runtime.  By
+                          default, this is set to the size of two block
+                          groups' inode tables (typically 4MiB on a regular
+                          ext4 filesystem); if this amount is more than
+                          1/50th of total physical memory, readahead is
+                          disabled.  Set this to zero to disable readahead
+                          entirely.
+
+                   bmap2extent
+                          Convert block-mapped files to extent-mapped files.
+
+                   fixes_only
+                          Only fix damaged metadata; do not optimize htree
+                          directories or compress extent trees.  This option
+                          is incompatible with the -D and -E bmap2extent
+                          options.
+
+                   unshare_blocks
+                          If the filesystem has shared blocks, with the
+                          shared blocks read-only feature enabled, then this
+                          will unshare all shared blocks and unset the read-
+                          only feature bit. If there is not enough free
+                          space then the operation will fail.  If the
+                          filesystem does not have the read-only feature
+                          bit, but has shared blocks anyway, then this
+                          option will have no effect. Note when using this
+                          option, if there is no free space to clone blocks,
+                          there is no prompt to delete files and instead the
+                          operation will fail.
+
+                          Note that unshare_blocks implies the "-f" option
+                          to ensure that all passes are run. Additionally,
+                          if "-n" is also specified, e2fsck will simulate
+                          trying to allocate enough space to deduplicate. If
+                          this fails, the exit code will be non-zero.
+
+       -f     Force checking even if the file system seems clean.
+
+       -F     Flush the filesystem device's buffer caches before beginning.
+              Only really useful for doing e2fsck time trials.
+
+       -j external-journal
+              Set the pathname where the external-journal for this
+              filesystem can be found.
+
+       -k     When combined with the -c option, any existing bad blocks in
+              the bad blocks list are preserved, and any new bad blocks
+              found by running badblocks(8) will be added to the existing
+              bad blocks list.
+
+       -l filename
+              Add the block numbers listed in the file specified by filename
+              to the list of bad blocks.  The format of this file is the
+              same as the one generated by the badblocks(8) program.  Note
+              that the block numbers are based on the blocksize of the
+              filesystem.  Hence, badblocks(8) must be given the blocksize
+              of the filesystem in order to obtain correct results.  As a
+              result, it is much simpler and safer to use the -c option to
+              e2fsck, since it will assure that the correct parameters are
+              passed to the badblocks program.
+
+       -L filename
+              Set the bad blocks list to be the list of blocks specified by
+              filename.  (This option is the same as the -l option, except
+              the bad blocks list is cleared before the blocks listed in the
+              file are added to the bad blocks list.)
+
+       -n     Open the filesystem read-only, and assume an answer of `no' to
+              all questions.  Allows e2fsck to be used non-interactively.
+              This option may not be specified at the same time as the -p or
+              -y options.
+
+       -p     Automatically repair ("preen") the file system.  This option
+              will cause e2fsck to automatically fix any filesystem problems
+              that can be safely fixed without human intervention.  If
+              e2fsck discovers a problem which may require the system
+              administrator to take additional corrective action, e2fsck
+              will print a description of the problem and then exit with the
+              value 4 logically or'ed into the exit code.  (See the EXIT
+              CODE section.)  This option is normally used by the system's
+              boot scripts.  It may not be specified at the same time as the
+              -n or -y options.
+
+       -r     This option does nothing at all; it is provided only for
+              backwards compatibility.
+
+       -t     Print timing statistics for e2fsck.  If this option is used
+              twice, additional timing statistics are printed on a pass by
+              pass basis.
+
+       -v     Verbose mode.
+
+       -V     Print version information and exit.
+
+       -y     Assume an answer of `yes' to all questions; allows e2fsck to
+              be used non-interactively.  This option may not be specified
+              at the same time as the -n or -p options.
+
+       -z undo_file
+              Before overwriting a file system block, write the old contents
+              of the block to an undo file.  This undo file can be used with
+              e2undo(8) to restore the old contents of the file system
+              should something go wrong.  If the empty string is passed as
+              the undo_file argument, the undo file will be written to a
+              file named e2fsck-device.e2undo in the directory specified via
+              the E2FSPROGS_UNDO_DIR environment variable.
+
+              WARNING: The undo file cannot be used to recover from a power
+              or system crash.
+
+
+
+如果使用命令时出现下面情况：
+If you use the command, the following happens:
+ 
+请参考https://blog.csdn.net/qq_29343201/article/details/52214054 说明对系统或者命令重新编译
+Please refer to https://blog.csdn.net/qq_29343201/article/details/52214054 for recompiling the system or command.
+
+使用此命令必须分区在umout下进行
+Use this command to partition under umout
+
+e2fsck -v -t -c /dev/block/mmcblk0p21
+ 
+
+4、	使用Androbench应用对flash进行IO测试
+using the Androbench application for IO test of flash
+https://play.google.com/store/apps/details?id=com.andromeda.androbench2
+ 
+
+ 
+	QPS（Queries per second每秒查询数）
+	IOPS（input/output operations per second每秒输入/输出操作）is the standard unit of measurement for the maximum number of reads and writes to non-contiguous storage locations.是对非连续存储位置的最大读取和写入次数的标准测量单位。
+
+
+或者测试应用(CPDT Benchmark〉Storage﹣Memory﹣RAМ﹣SD-Card﹣Disk﹣SSD)
+https://play.google.com/store/apps/details?id=com.Saplin.CPDT&rdid=com.Saplin.CPDT
+(不同应用有不同的计算方式，做对比要同应用同环境做对比)
+(Different applications have different calculation methods, and comparisons should be compared with the application environment)
+
