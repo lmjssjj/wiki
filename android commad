@@ -1,0 +1,2 @@
+String[] cmd = new String[]{"sh","-c","ps | grep xxx"};
+Runtime.getRuntime().exec(cmd);
