@@ -1,4 +1,4 @@
-ScanManager 定义了扫描模式的le_scan_window  和  le_scan_interval
+ScanManager类里面 定义了扫描模式的le_scan_window  和  le_scan_interval
 
 O版本之后为了省电增加了限制 第1次和第六次必须间隔30秒 system app不受比限制
     AppScanStats  isScanningTooFrequenty();
