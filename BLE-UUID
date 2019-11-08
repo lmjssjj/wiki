@@ -4,5 +4,16 @@
 （2）Service 通用接入规范 00001800-0000-1000-8000-00805f9b34fb
     a）Characteristic 设备名称 00002a00-0000-1000-8000-00805f9b34fb  
     b）Characteristic 设备外观 00002a01-0000-1000-8000-00805f9b34fb （00 00）
-    
+   
+iphone自带的服务
+uuid: fax                       (00001111-0000-1000-8000-00805f9b34fb)
+uuid: generic access profile    (00001800-0000-1000-8000-00805f9b34fb)
+uuid: generic attribute profile (00001801-0000-1000-8000-00805f9b34fb)
+uuid: current time service      (00001805-0000-1000-8000-00805f9b34fb)
+uuid: device information        (0000180a-0000-1000-8000-00805f9b34fb)
+uuid: battery service           (0000180f-0000-1000-8000-00805f9b34fb)
+uuid: vendor specific           (7905f431-b5ce-4e99-a40f-4b1e122d00d0)
+uuid: vendor specific           (89d3502b-0f36-433a-8ef4-c502ad55f8dc)
+uuid: vendor specific           (9fa480e0-4967-4542-9390-d343dc5d04ae)
+uuid: vendor specific           (d0611e78-bbb4-4591-a5f8-487910ae4366)
  
