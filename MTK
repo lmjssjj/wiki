@@ -6,6 +6,7 @@
 /0609-0613/wind/A460/master/device/mediateksample/A460/version//版本
 /0609-0613/wind/A460/master/device/mediateksample/A460/windconfig//定义一些信息
 /0609-0613/wind/A460/master/device/mediateksample/A460/custom.conf
+/0609-0613/wind/A460/master/device/mediateksample/A460/android.hardware.usb.host.xml
 /0609-0613/wind/A460/master/build/make/target/product/security/wind///签名文件
 /0609-0613/wind/A460/Sprint/device/mediatek/common/device.mk//  里面拷贝了 apns-conf.xml  spn-conf.xml
 /0609-0613/wind/A460/Sprint/device/mediatek/config/apns-conf.xml
