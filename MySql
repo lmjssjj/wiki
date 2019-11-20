@@ -1,0 +1,50 @@
+mysql 关系型数据库
+net start/stop mysql
+登录：mysql -h服务器地址 -u登录名 -P端口号 -p
+或登录：mysql --host=服务器地址 --user=用户名 --port=端口 --password
+退出：quit; 或 exit;
+登录数据库系统后，需要使用“set names 编码名；”来设定当前连接数据库的“环境编码名”
+
+备份和恢复在未登陆情况下
+备份：mysqldump -h服务器地址 -u登录名 -P端口号 -p 数据库名>文件名
+注意：需要管理员权限；
+恢复：mysql -h服务器地址 -u登录名 -P端口号 -p 数据库名<文件名
+
+单行注释： #注释内容
+单行注释： -- 注释内容（注意，两个“--”之后有一个空格）
+多行注释： /*注释内容*/
+
+语句行：
+一条语句也称为一条命令，通常用一个分号(;)结束；也可以通过"delimiter 新结束符" 命令来设定新的结束符。
+语句的执行是以一条语句为单位进行，一次执行一条语句。
+
+创建数据库
+create database [if not exists] 数据库名 [character set=字符集] [collate=校对集];
+character set:用来设定数据库中的字符数据所要使用的字符编码，一些固定的名字，常用有utf8，gbk，gb2312。 也可以写成charset。
+collate：翻译为整序，整理，校对集，校对规则，排序规则——其实就是指字符以何种方式进行排序的设定，也是一些跟字符编码有关联的固定名字。比如“传”和“智”两个字，按拼音，就是“传”在前，但按笔顺，就是“智”在前。
+数据库创建后的文件及存放位置：/data/数据库名/db.opt
+其中的等号可以省略，但需有空格，比如：character set utf8 collate utf8_general_ci
+查看字符集和排序规则：
+show charset;
+show collation;
+create database lmjssjj charset utf8 collate utf8_general_ci;
+create database lmjssjj charset gbk collate gbk_bin;
+create database lmjssjj charset utf8;
+
+修改数据库：所谓修改数据库就是修改数据库的选项值。
+alter database 数据库名 character set=新字符集 collate=新校对集;
+
+删除数据库
+drop database [if exists] 数据库;
+drop database if exists lmjssjj;
+
+其他相关
+进入（使用）某个数据库：
+use lmjssjj;
+
+显示所有数据库：
+show databases;
+显示某数据库的创建语句
+show create database lmjssjj;
+
+
