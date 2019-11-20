@@ -270,6 +270,13 @@ create table lmjssjj(id int auto_increment primary key,
            也可以认为，视图就是一条select语句的查询结果，只是预先放在数据库中而已。
            我们可以将此查询结果（有行有列有字段名）当作一个表来使用。
 创建视图： create view 视图名 [（列名1，列名2，...）] as select语句；
+create  view  v1  as 
+select  id,  f1,  name,  age,  email,  p_id,  f3  from  表1  where id > 7 and  id < 100  or  f1 < 1000  and  age > 10
+
+select * from v1 limit 0,10;
+select id,p_id from v1;
+select id from v1 where id<252 limit 0,10;
+
 视图名不能跟表名同名——因为他们都是隶属于数据库的“对象”；
 视图的默认列名就是定义视图的时候的select语句中设定的列名；
 视图定义的时候也可以指定自己的列名，但此时指定的列名数应该跟select语句的列名数相等；
