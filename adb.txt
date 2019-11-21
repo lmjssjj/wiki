@@ -10,3 +10,4 @@ adb shell getprop "ro.bdfun.inner_sw_version"
 
 adb shell setprop persist.vendor.connsys.coredump.mode 2
 
+adb shell dumpsys deviceidle whitelist
