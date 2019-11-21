@@ -4,7 +4,12 @@
 /etc/permissions/privapp-permissions-DEVICE_NAME.xml
 https://source.android.com/devices/tech/config/perms-whitelist
 
-
+adb shell dumpsys deviceidle whitelist
 省电优化白名单
 /system/etc/permissions/platform.xml
 <allow-in-power-save package="com.android.shell" />
+系统应用白名单
+<system-user-whitelisted-app package="com.android.settings" />
+系统应用黑名单
+<system-user-blacklisted-app package="com.android.wallpaper.livepicker" />
+/frameworks/core/java/com/android/server/SystemConfig.java 这个SystemConfig就是来解析platform.xml，然后供一个个系统接口用作返回值的依据
