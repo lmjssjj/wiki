@@ -1,1 +1,2 @@
 dumpsys package com.android.vending |grep -i -A5 -B5 "runtime permissions"
+dumpsys deviceidle whitelist | grep -i $packageName | wc -l
