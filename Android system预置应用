@@ -1,2 +1,5 @@
 默认打开权限的应用必须在system/priv-app/*.apk
+权限白名单可列在位于 frameworks/base/etc/permissions 目录下的单个或多个 XML 文件中
+/etc/permissions/privapp-permissions-OEM_NAME.xml
+/etc/permissions/privapp-permissions-DEVICE_NAME.xml
 https://source.android.com/devices/tech/config/perms-whitelist
