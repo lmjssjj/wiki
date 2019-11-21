@@ -1,0 +1,1 @@
+dumpsys package com.android.vending |grep -i -A5 -B5 "runtime permissions"
