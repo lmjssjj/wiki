@@ -1,1 +1,2 @@
+默认打开权限的应用必须在system/priv-app/*.apk
 https://source.android.com/devices/tech/config/perms-whitelist
