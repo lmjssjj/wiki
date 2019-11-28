@@ -62,7 +62,7 @@ pdbedit -L       查看所有的samba用户
    available = yes
    writable = yes
    hide dot ftles = yes
-
+sudo chmod 777 /home/lmjssjj/lmjssjj   //给予权限
 
 重启：sudo /etc/init.d/smbd restart
 
