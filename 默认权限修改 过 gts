@@ -1,0 +1,21 @@
+frameworks/base/core/java/android/app/ApplicationPackageManager.java
+@Override
+    public int checkPermission(String permName, String pkgName) {
+        try {
+            //prize-added for gts granted permission 
+            String taker = mContext.getPackageName();
+            if ("com.google.android.permission.gts".equals(taker)) {
+                String[] whiteLists = new String[] {"com.bluproducts.activationapp","com.dti.blu"};
+                for (String pkg : whiteLists) {
+                    if (pkg.equals(pkgName)) {
+                      
+                        return PERMISSION_DENIED;
+                    }
+                }
+            }
+            //prize-added for gts granted permission 
+            return mPM.checkPermission(permName, pkgName, mContext.getUserId());
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
