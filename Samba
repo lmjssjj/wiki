@@ -1,2 +1,21 @@
-sudo /etc/init.d/smbd restart
+安装： yum install samba
+或  ：
+
+主配置文件： /etc/samba/smb.conf
+配置文件的一些属性：
+security = share | user | server | domain     
+#安全验证的方式，总共有4种
+#share：来访主机不需要验证；比较方便，安全性差
+#user：需要输入用户和密码登录后才可以访问，提高了安全性
+#server：使用独立的远程主机验证来访主机提供的口令（集中管理账户）
+#domain：使用域控制器进行身份验证
+
+命令：
+pdbedit命令用于管理SMB服务程序的账户信息，格式为“pdbedit [参数] 账户”
+-a  用户名              #建立Samba用户
+-x  用户名              #删除Samba用户
+-L                      #列出用户列表
+-Lv                     #列出用户详细信息的列表
+
+重启：sudo /etc/init.d/smbd restart
 
