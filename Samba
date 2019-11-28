@@ -1,5 +1,8 @@
 安装： yum install samba
-或  ：
+或  ： sudo apt-get update
+       sudo apt-get install samba
+       sudo apt-get install samba smbclient
+       sudo apt-get install smbfs//Windows 文件操作系统
 
 主配置文件： /etc/samba/smb.conf
 配置文件的一些属性：
@@ -10,12 +13,42 @@ security = share | user | server | domain
 #server：使用独立的远程主机验证来访主机提供的口令（集中管理账户）
 #domain：使用域控制器进行身份验证
 
+下面我们一起了解一下smb.conf文件中常见的一些配置项及其含义说明。
+workgroup：所在工作组名称
+security：安全级别，centos6之前可用值有share、user、server、domain，centos7之后不再支持share，
+如果配置匿名共享时，需要在全局参数中添加“map to guest = bad user”这一行内容。
+passwd backend：设置共享账户文件的类型，默认使用tdbsam（TDB数据库文件）
+comment：对共享目录的注释、说明信息
+valid users:有效用户
+path：共享目录在服务器中对应的实际路径
+browseable：该共享目录在“网上邻居”中是否可见
+guest ok：是否允许所有人访问，等效于“public”
+writable：是否可写，与 read only 的作用相反
+inherit acls：是否继承acl（访问控制列表）
+
+访问地址限制
+    在samba.conf 中的全局配置中配置
+    允许hosts allow = 192.168.3.1 或者是 禁止hosts deny = 192.168.3.1
+    访问地址限制一般用于全局配置部分，也可以用于某个具体的共享配置段部分。
+    限制对象可以是主机名、ip地址或者    是网络段地址（省去主机位部分），多个地址之间以逗号或是空格分隔。   
+
+创建Samba用户
+上面设置的是用户口令认证模式（user）；
+也是默认的模式，需要创建访问共享资源的账户信息。
+Samba服务程序的用户账号必须在当前系统中已经存在。
 命令：
 pdbedit命令用于管理SMB服务程序的账户信息，格式为“pdbedit [参数] 账户”
 -a  用户名              #建立Samba用户
 -x  用户名              #删除Samba用户
 -L                      #列出用户列表
 -Lv                     #列出用户详细信息的列表
+
+adduser username    #创建系统用户
+pdbedit -a -u username  #添加Samba共享用户    pdbedit -x -u username  #删除samba用户
+new password:        输入密码
+pdbedit -L       查看所有的samba用户
+
+
 
 重启：sudo /etc/init.d/smbd restart
 
