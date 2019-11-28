@@ -48,6 +48,20 @@ pdbedit -a -u username  #添加Samba共享用户    pdbedit -x -u username  #删
 new password:        输入密码
 pdbedit -L       查看所有的samba用户
 
+在/etc/samba/smb.conf 后为每个用户添加配置
+[lmjssjj]
+   comment = share folder
+   browseable = yes
+   path = /home/lmjssjj/lmjssjj
+   create mask = 0777
+   directory mask = 0777
+   valid users = lmjssjj
+   force user = nobody
+   force group = nogroup
+   public = no
+   available = yes
+   writable = yes
+   hide dot ftles = yes
 
 
 重启：sudo /etc/init.d/smbd restart
