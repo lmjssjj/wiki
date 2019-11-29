@@ -1,0 +1,45 @@
+private boolean verifyAuthenticity(int uid){
+        boolean ret = false;
+
+        if(UimRemoteServerWhiteList == null) {
+            return ret;
+        }
+        String[] packageNames = context.getPackageManager().getPackagesForUid(uid);
+        for(String packageName : packageNames){
+            if(UimRemoteServerWhiteList.containsKey(packageName)){
+                String hash = (String)UimRemoteServerWhiteList.get(packageName);
+                String compareHash = new String();
+                try {
+                    Signature[] sigs = context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures;
+                    for(Signature sig: sigs) {
+
+                        //get the raw certificate into input stream
+                        final byte[] rawCert = sig.toByteArray();
+                        InputStream certStream = new ByteArrayInputStream(rawCert);
+
+                        //Read the X.509 Certificate into certBytes
+                        final CertificateFactory certFactory = CertificateFactory.getInstance("X509");
+                        final X509Certificate x509Cert = (X509Certificate)certFactory.generateCertificate(certStream);
+                        byte[] certBytes = x509Cert.getEncoded();
+
+                        //get the fixed SHA-1 cert
+                        MessageDigest md = MessageDigest.getInstance("SHA-1");
+	                    md.update(certBytes);
+	                    byte[] certThumbprint = md.digest();
+
+                        //cert in hex format
+                        compareHash = bytesToHex(certThumbprint);
+
+                        if(hash.equals(compareHash)) {
+                            ret = true;
+                            break;
+                        }
+                    }
+                }
+                catch(Exception e) {
+                    Log.e(LOG_TAG, "Exception reading client data!" + e);
+                }
+            }
+        }
+        return ret;
+    }
