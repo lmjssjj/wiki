@@ -1,0 +1,7 @@
+ <shortcut
+        launcher:icon="@drawable/ic_allapps"
+        launcher:screen="0"
+        launcher:title="@string/app_name"
+        launcher:uri="http://www.google.com"
+        launcher:x="3"
+        launcher:y="3" />
