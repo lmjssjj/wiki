@@ -5,3 +5,6 @@
         launcher:uri="http://www.google.com"
         launcher:x="3"
         launcher:y="3" />
+<appwidget launcher:className="com.google.android.finsky.widget.recommendation.RecommendedWidgetProvider" launcher:packageName="com.android.vending" launcher:screen="3" launcher:x="0" launcher:y="0" launcher:spanX="6" launcher:spanY="2">
+        <extra launcher:key="type" launcher:value="all" />
+    </appwidget>
