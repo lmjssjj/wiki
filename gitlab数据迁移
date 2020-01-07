@@ -1,0 +1,35 @@
+遇到问题：
+  因为gitlab数据目录对权限有要求  在使用chown  chmod 对文件夹权限修改时发现改不了权限，权限始终是最高级的
+  在重启服务器后 挂载盘不自动挂载
+问题排查：
+  使用了sudo blkid 查看时  发现硬盘被挂载为window下的ntfs格式
+  后面重新格式硬盘 转为linux filesystem
+  
+  因为mount命令会在重启服务器后失效，所以要将分区信息写到/etc/fstab文件中让它永久挂载：
+  $ sudo vim /etc/fstab
+  添加：
+  UUID=uuid字符串 挂载目录 ext4 defaults 0 1
+  
+  <fs spec> <fs file> <fs vfstype> <fs mntops> <fs freq> <fs passno>
+ 具体说明，以挂载/dev/sdb1为例:
+<fs spec> :分区定位，可以给UUID或LABEL，例如：UUID=6E9ADAC29ADA85CD或LABEL=software
+<fs file> : 具体挂载点的位置，例如：/data
+<fs vfstype> : 挂载磁盘类型，linux分区一般为ext4，windows分区一般为ntfs
+<fs mntops> : 挂载参数，一般为defaults
+<fs freq> : 磁盘检查，默认为0
+<fs passno> : 磁盘检查，默认为0,不需要检查
+
+在生产环境上迁移GitLab的目录需要注意一下几点：
+
+1、目录的权限必须为755或者775
+
+2、目录的用户和用户组必须为git:git
+
+3、如果在深一级的目录下，那么git用户必须添加到上一级目录的账户。
+
+4、很多文章说修改/etc/gitlab/gitlab.rb这个文件里面的git_data_dirsb变量，其实没必要，只需要使用软链接改变原始目录/var/opt/gitlab/git-data更好一些。
+
+5、注意：迁移前的版本和迁移后的版本必须保持一致，如果迁移后的版本是高版本，那么现在原版本做升级后再迁移
+
+
+
