@@ -1,0 +1,127 @@
+
+当push时出现如下情况 出现了 冲突
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master)
+$ git push
+To 192.168.68.10:root/test01.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@192.168.68.10:root/test01.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+
+解决问一：
+先pull 查看冲突文件 解决冲突的文件
+
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master)
+$ git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From 192.168.68.10:root/test01
+   ae37389..91401c8  master     -> origin/master
+Auto-merging new file.txt
+CONFLICT (content): Merge conflict in new file.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+查看状态
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master|MERGING)
+$ git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   new file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+添加 刚刚解决冲突的文件
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master|MERGING)
+$ git add new\ file.txt
+
+提交
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master|MERGING)
+$ git commit -m 'fix conflict'
+[master 1ac419d] fix conflict
+
+推送
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master)
+$ git push
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 602 bytes | 602.00 KiB/s, done.
+Total 6 (delta 0), reused 0 (delta 0)
+To 192.168.68.10:root/test01.git
+   91401c8..1ac419d  master -> master
+
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/test/test01/test01 (master)
+
+
+
+
+解决问题二：
+先使用 git pull --rebase
+在任何时候，都可以用git rebase --abort参数来终止rebase的行动
+
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/git_test/test01 (master)
+$ git pull --rebase
+remote: Enumerating objects: 10, done.
+remote: Counting objects: 100% (10/10), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (6/6), done.
+From 192.168.68.10:root/test01
+   91401c8..1ac419d  master     -> origin/master
+First, rewinding head to replay your work on top of it...
+Applying: test
+Using index info to reconstruct a base tree...
+M       new file.txt
+Falling back to patching base and 3-way merge...
+Auto-merging new file.txt
+CONFLICT (content): Merge conflict in new file.txt
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch' to see the failed patch
+Patch failed at 0001 test
+Resolve all conflicts manually, mark them as resolved with
+"git add/rm <conflicted_files>", then run "git rebase --continue".
+You can instead skip this commit: run "git rebase --skip".
+To abort and get back to the state before "git rebase", run "git rebase --abort".
+
+解决冲突文件 然后add
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/git_test/test01 (master|REBASE 1/1)
+$ git add .
+
+接下来
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/git_test/test01 (master|REBASE 1/1)
+$ git rebase --continue
+Applying: test
+
+接下来
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/git_test/test01 (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 311 bytes | 311.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To 192.168.68.10:root/test01.git
+   1ac419d..17448ab  master -> master
+
+Administrator@PC-20190711EWLC MINGW64 ~/Desktop/git_test/test01 (master)
+$
+
