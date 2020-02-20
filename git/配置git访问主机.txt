@@ -5,7 +5,7 @@ host nuu_git_XXX   (自己定义)
 user git
 hostname 103.118.48.30   (这个不要动是我们无锡服务器地址)
 port 72
-IdentityFile /home/nuu/.ssh/id_rsa  (当前账号私钥路径  私钥对应的公钥提供给我们)
+IdentityFile /home/nuu/.ssh/id_rsa  (路径有空格需要加引号)
 IdentitiesOnly yes  
 
 
