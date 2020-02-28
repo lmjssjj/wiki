@@ -24,4 +24,5 @@ TotalTime: 2335
 WaitTime: 2404
 Complete
 C:\Users\Administrator\Desktop>
+02-27 20:56:32.370  1404  1550 I ActivityManager: Displayed com.nuumobile.livesupport/.WebActivity: +1s862ms
 -------------------------------------------
