@@ -15,7 +15,6 @@ adb shell setprop persist.vendor.connsys.coredump.mode 2
 adb shell dumpsys deviceidle whitelist
 
 -------------------------------------------
-
 C:\Users\Administrator\Desktop>adb shell am start -W com.nuumobile.livesupport/.WebActivity
 Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.nuumobile.livesupport/.WebActivity }
 Status: ok
@@ -24,7 +23,5 @@ ThisTime: 2335
 TotalTime: 2335
 WaitTime: 2404
 Complete
-
 C:\Users\Administrator\Desktop>
-
 -------------------------------------------
