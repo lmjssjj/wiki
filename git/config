@@ -1,0 +1,6 @@
+host nuu_git_n5003l
+user git
+hostname 103.118.48.30
+port 72
+IdentityFile /home/nuu/.ssh/id_rsa
+IdentitiesOnly yes  
