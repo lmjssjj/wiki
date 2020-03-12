@@ -1,0 +1,44 @@
+﻿服务器配置 
+1：配置 config  host  (这个config 位置一般在~/.ssh下) editor ~/.ssh/config  打开config 文件 修改如下：
+host lmjssjj_gitlite_XXX   (自己定义)
+user gitolite 
+hostname ip   (服务器地址)
+IdentityFile ~/.ssh/XXXX  (自己的私钥钥对应的公钥提供给我们)
+IdentitiesOnly yes  
+
+2：把提供的 repo_mtk   repo_mtk.git.zip  放到/usr/bin  下 解压repo_mtk.git.zip 在当前文件下
+
+
+
+拉取工程3步：
+
+repo_mtk  init -u  服务器名(config中配置的host):thirdproject/Repository/manifests.git -b Repository
+repo_mtk  init -u  lmjssjj_gitlite_xxxx:thirdproject/Repository/manifests.git -b Repository
+
+
+repo_mtk  init -u  58.215.227.27:thirdproject/Repository/manifests.git -b Repository
+
+repo_mtk sync -c -f
+
+repo_mtk start --all Repository
+
+编译工程：
+
+source build/envsetup.sh
+source mbldenv.sh
+lunch phone_model_user  或者编译debug版本 lunch phone_model_userdebug
+make -j32  | tee build_total.log 2>&1
+
+
+更新代码：
+全部pull:
+repo_mtk forall -c 'git pull origin Repository'   
+如果只是 更新某个模块 比如 kernel-4.9 模块：
+cd kernel-4.9
+进入 kernel-4.9 模块 
+git pull origin Repository
+
+切换基线
+repo_mtk forall -c git fetch origin xxx:xxx
+repo_mtk forall -c git fetch origin The_new_branch:The_new_branch
+repo_mtk forall -c git checkout The_new_branch
