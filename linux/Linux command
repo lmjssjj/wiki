@@ -96,7 +96,7 @@ grep '指定内容' -r 目录
 
  grep -i -A 5 "runtime permissions"
  
- find . -type d -name ".git"|xargs rm -rf
-
+find . -type d -name ".git"|xargs rm -rf
+find -name '文件名或目录名' | xargs rm -rf
 $ sudo find . -name  .git* | xargs sudo rm -rf
 
