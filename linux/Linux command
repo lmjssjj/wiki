@@ -98,4 +98,5 @@ grep '指定内容' -r 目录
  
  find . -type d -name ".git"|xargs rm -rf
 
+$ sudo find . -name  .git* | xargs sudo rm -rf
 
