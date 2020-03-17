@@ -13,3 +13,5 @@
 /0609-0613/wind/A460/Sprint/device/mediatek/common/spn-conf.xml
 /0609-0613/wind/A460/USCC/vendor/partner_gms/apps///GMS
 /0609-0613/wind/A460/USCC/vendor/partner_gms/products/gms_go.mk
+
+frameworks/base/data/etc/ system/etc/

@@ -5,3 +5,4 @@ vendor\mediatek\proprietary\packages\3rd-party\应用的独立目录
 3、
 如果应用中存在so文件时 需要提取so文件到该目录下 并修改对应的mk文件
 4、看实例LBS
+5、需要在编译模块的device.mk  添加 product_pageage += 
