@@ -1,0 +1,34 @@
+android.app.Activity.requestPermissions(String[], int)//申请权限
+android.content.pm.PackageManager.buildRequestPermissionsIntent(String[])//创建申请权限Intent
+	public Intent buildRequestPermissionsIntent(@NonNull String[] permissions) {
+        if (ArrayUtils.isEmpty(permissions)) {
+           throw new IllegalArgumentException("permission cannot be null or empty");
+        }
+        Intent intent = new Intent(ACTION_REQUEST_PERMISSIONS);
+        intent.putExtra(EXTRA_REQUEST_PERMISSIONS_NAMES, permissions);
+        intent.setPackage(getPermissionControllerPackageName());
+        return intent;
+    }
+	
+com.android.packageinstaller.permission.ui.GrantPermissionsActivity//权限Intent打开的对话框
+	<activity android:name=".permission.ui.GrantPermissionsActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:excludeFromRecents="true"
+                android:theme="@style/GrantPermissions"
+                android:visibleToInstantApps="true">
+            <intent-filter android:priority="1">
+                <action android:name="android.content.pm.action.REQUEST_PERMISSIONS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+    </activity>
+	
+com.android.packageinstaller.permission.ui.GrantPermissionsActivity.onPermissionGrantResult(String, boolean, boolean)//权限回调函数处理用户对权限的选择
+
+
+com.android.packageinstaller.permission.model.AppPermissionGroup.grantRuntimePermissions(boolean, String[])//当用户选择同意权限的流程
+com.android.server.pm.PackageManagerService.grantRuntimePermission(String, String, int)
+runtime-permissions.xml 权限写入文件 /data/system/users/userid/runtime-permissions.xml
+
+
+
+
