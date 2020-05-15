@@ -29,6 +29,19 @@ source mbldenv.sh
 lunch phone_model_user  或者编译debug版本 lunch phone_model_userdebug
 make -j32  | tee build_total.log 2>&1
 
+其中 make 是编译命令，
+
+-j8 这里的 8 指的是线程数量，就是你要用几个线程去编译这个工程，一般会是 CPU核心数的2 倍。
+
+提示：开多了会卡死的！！！
+
+ 
+
+2是标准错误，&1是标准输出，2>&1意思就是将标准错误输出到标准输出中。
+
+如果没有2>&1,只会有标准输出，没有错误；
+ tee的作用同时输出到控制台和文件
+
 
 更新代码：
 全部pull:
