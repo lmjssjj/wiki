@@ -1,0 +1,7 @@
+if (!((File)localObject).exists())
+                ((File)localObject).createNewFile();
+            sb= new StringBuilder();
+            sb.append("logcat -f ");
+            sb.append(((File)localObject).getAbsolutePath());
+            cmd= sb.toString();
+            Runtime.getRuntime().exec((String)cmd);
