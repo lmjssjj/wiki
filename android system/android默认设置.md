@@ -24,5 +24,9 @@ setToDefaults()
 ro.config.ringtone=Playa.ogg（默认铃声设置，文件在/system/media/audio/ringtones 把喜欢的铃声放这里，比如123.MP3放入ringtones文件夹中，这里代码改为ro.config.ringtone=123.mp3）
 ro.config.notification_sound=regulus.ogg（默认提示音，文件在/system/media/audio/notifications 修改方法同上）
 ro.config.alarm_alert=Alarm_Beep_03.ogg（默认闹铃，文件在/system/media/audio/alarms 修改方法同上）
+
+代码定义默认铃声大小
+android.media.AudioSystem.DEFAULT_STREAM_VOLUME
+loadVolumeLevels()
 ```
 

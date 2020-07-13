@@ -1,0 +1,1 @@
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>  аУ╨ёфа х╚фаотй╬
