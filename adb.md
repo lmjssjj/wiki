@@ -43,3 +43,10 @@ adb shell screenrecord --time-limit 10 --verbose /sdcard/demo.mp4
     adb pull /sdcard/demo.mp4
 ```
 
+
+
+```
+以下命令执行后会抓取8s systrace然后自动停止：
+adb shell atrace -z -t 8 -b 8192 gfx input am wm sched freq idle load binder_driver binder_lock view > settings.atrace
+```
+
