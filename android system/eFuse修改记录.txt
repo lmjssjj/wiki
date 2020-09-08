@@ -1,0 +1,21 @@
+kernel-4.9\
+modify for efuse by 
+
+/vendor/mediatek/proprietary/scripts
+modify for efuse by 
+
+vendor/mediatek/proprietary/bootable/bootloader/preloader
+modify for efuse by 
+
+
+vendor/mediatek/proprietary/bootable/bootloader/lk
+modify for efuse by 
+
+
+vendor/mediatek/proprietary/custom
+modify for efuse by 
+
+
+
+    
+

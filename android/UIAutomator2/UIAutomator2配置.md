@@ -59,7 +59,7 @@ pip3  install --pre weditor
 ```
 使用方法
 1.手机连接pc，adb命令保证能正确读取到设备
-2.pc终端输入python -m webditor，浏览器自动打开网页http://atx.open.netease.com
+2.pc终端输入python -m weditor，浏览器自动打开网页http://atx.open.netease.com
 3.网页对应位置输入手机设备ip，点击connect连接手机设备，最后根据需要获取手机/app对应元素
 
 正常启动页面如下：
