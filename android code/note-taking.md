@@ -1,7 +1,11 @@
+# 截屏录屏
+
 ```
 截图录屏相关
 MediaProjectionManager,MediaProjection,VirtualDisplay,MediaCodec
 ```
+
+# 对view的颜色值过滤
 
 ```java
 //view 颜色过滤相关
@@ -37,6 +41,49 @@ for (int i = 0; i < childCount; i++) {
         paint.setColorFilter(new ColorMatrixColorFilter(cm));
         childView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
+}
+```
+
+# textview跑马灯
+
+```
+1、XML配置
+
+ Textview 一定要用 android:singleLine="true"。因为这个方法过时了，就用  android:lines="1".怎么搞都没用。
+
+<TextView
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="marquee"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:marqueeRepeatLimit="marquee_forever"
+    android:scrollHorizontally="true"
+    android:lines="1"
+    android:textSize="12dp" />
+正确配置如下：
+<TextView
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="marquee"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:marqueeRepeatLimit="marquee_forever"
+    android:singleLine="true"
+    android:scrollHorizontally="true"
+    android:textSize="12dp" />
+2、在adapter 里面 TextView 设置    holder.titleTv.setSelected(true);
+@Override
+public void onBindViewHolder(MainListHolder holder, int position) {
+    Uri uri = Uri.parse(Constant.IMG_BASEURL + mDatas.get(position).getMainPic());
+    Log.i("MainListAdapter", uri.toString());
+    holder.draweeView.setImageURI(uri);
+    holder.titleTv.setText(mDatas.get(position).getTitle());
+    holder.titleTv.setSelected(true);
+    holder.cityDsstrictTv.setText(mDatas.get(position).getCityTitle() + " [" +  mDatas.get(position).getDistrictTitle()+"]");
+    holder.priceTv.setText(mDatas.get(position).getPrice() + "");
 }
 ```
 

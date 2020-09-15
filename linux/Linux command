@@ -1,6 +1,7 @@
 Ubuntu linux 环境基本使用
 
 rsync -a --delete --exclude=.git GH411/  GH411_客户/  (同步文件夹)
+rsync -a --delete --exclude=.git n5004l/  /media/nuu/Newdisk/nuu/git_compile/lmjssjj/test/N5004L/n5004l_c/
 
 开启一个终端
 CTR+ALT+t
