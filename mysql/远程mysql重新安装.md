@@ -141,5 +141,12 @@ bind-address = 127.0.0.1
 IP改为0.0.0.0
 
 sudo service mysql restart
+
+
+mysql -u root -p  
+mysql;use mysql;  
+mysql;select 'host' from user where user='root';  
+mysql;update user set host = '%' where user ='root';  
+mysql;flush privileges;  
 ```
 
