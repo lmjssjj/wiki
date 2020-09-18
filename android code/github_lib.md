@@ -52,3 +52,9 @@ https://github.com/zb25810045/BWCoordinatorLayoutMedo
 https://github.com/AndyJennifer/NestedScrollingDemo
 ```
 
+# 9、QrCode
+
+```
+https://github.com/bingoogolapple/BGAQRCode-Android
+```
+
