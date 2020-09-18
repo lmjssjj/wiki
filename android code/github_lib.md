@@ -56,5 +56,6 @@ https://github.com/AndyJennifer/NestedScrollingDemo
 
 ```
 https://github.com/bingoogolapple/BGAQRCode-Android
+https://github.com/dm77/barcodescanner
 ```
 
