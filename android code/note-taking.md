@@ -87,3 +87,27 @@ public void onBindViewHolder(MainListHolder holder, int position) {
 }
 ```
 
+# 应用崩溃重启
+
+```
+private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+        @Override
+        public void uncaughtException(Thread t, Throwable e) {
+            LogUtils.e(e.getMessage());
+            restartApp();
+        }
+    };
+
+    private void restartApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        @SuppressLint("WrongConstant") PendingIntent restartIntent = PendingIntent.getActivity(
+                context.getApplicationContext(), 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        AlarmManager mgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
+                restartIntent);
+
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+```
+

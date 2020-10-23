@@ -21,6 +21,7 @@ https://github.com/hdodenhof/CircleImageView
 
 ```
 https://github.com/youth5201314/banner
+https://github.com/saiwu-bigkoo/Android-ConvenientBanner
 ```
 
 # 5、loadinglayout
@@ -57,5 +58,26 @@ https://github.com/AndyJennifer/NestedScrollingDemo
 ```
 https://github.com/bingoogolapple/BGAQRCode-Android
 https://github.com/dm77/barcodescanner
+```
+
+# 10、fragment相关
+
+```
+https://github.com/YoKeyword/Fragmentation/tree/master
+https://github.com/Liam6666/FragmentationX
+```
+
+# 11、正在loading显示
+
+```
+https://github.com/dinuscxj/LoadingDrawable
+https://github.com/81813780/AVLoadingIndicatorView
+https://github.com/ldoublem/LoadingView
+```
+
+# 12、logger
+
+```
+https://github.com/orhanobut/logger
 ```
 
