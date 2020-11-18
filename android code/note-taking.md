@@ -111,3 +111,11 @@ private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHa
     }
 ```
 
+# Userid
+
+```
+mPackageManager = context.getPackageManager();
+        mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+        mUserId = UserHandle.myUserId();
+```
+

@@ -106,3 +106,9 @@ https://github.com/niorgai/StatusBarCompat
 https://github.com/Blankj/AndroidUtilCode
 ```
 
+# 17recyclerview 相关
+
+```
+https://github.com/giswangsj/RvParallaxImageView
+```
+
