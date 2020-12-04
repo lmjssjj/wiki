@@ -119,3 +119,29 @@ mPackageManager = context.getPackageManager();
         mUserId = UserHandle.myUserId();
 ```
 
+# 系统获取网络时间
+
+```java
+//Use the system to get time on the network  
+//Below is the system API
+public class Utils {
+    public void getTime(Context context) {
+        new Thread() {
+            @Override
+            public void run() {
+				//NtpTrustedTime system API
+                if (NtpTrustedTime.getInstance(context).getCacheAge() > 10000){//Interval between cache time and now
+                    boolean b = NtpTrustedTime.getInstance(context).forceRefresh();
+                    if (b){
+                        long time = NtpTrustedTime.getInstance(context).getCachedNtpTime();
+                        //updatatime
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Log.v("lmjssjj",formatter.format(new Date(time)));
+                    }
+                }
+            }
+        }.start();
+    }
+}
+```
+
