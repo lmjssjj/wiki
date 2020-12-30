@@ -145,3 +145,46 @@ public class Utils {
 }
 ```
 
+# 应用数据管理
+
+在程序的manifest文件的application中加上manageSpaceActivity属性，并且指定一个Activity，这个Activity就是点击管理空间之后会跳转的那个Activity了。
+
+```xml
+<application android:managespaceactivity="[packageName].ManageSpaceActivity" ...="">  
+
+  
+  <activity android:name="[packageName].ManageSpaceActivity" android:screenorientation="portrait">  
+</activity></application>  
+```
+
+PS 如果要避免数据被删除，可以创建一个自动关闭的Activity。
+
+```java
+public class ManageSpaceActivity extends Activity {  
+  
+    @Override  
+    protected void onCreate(Bundle savedInstanceState) {  
+        super.onCreate(savedInstanceState);  
+  
+        finish();  
+  
+    }// onCreate  
+} 
+```
+
+# 重启app
+
+```java
+    private void restartApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        @SuppressLint("WrongConstant") PendingIntent restartIntent = PendingIntent.getActivity(
+                context.getApplicationContext(), 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        AlarmManager mgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000,
+                restartIntent);
+
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
+```
+
