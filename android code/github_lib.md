@@ -74,6 +74,7 @@ https://github.com/Liam6666/FragmentationX
 https://github.com/dinuscxj/LoadingDrawable
 https://github.com/81813780/AVLoadingIndicatorView
 https://github.com/ldoublem/LoadingView
+https://github.com/ybq/Android-SpinKit
 ```
 
 # 12、logger
