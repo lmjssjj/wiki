@@ -125,3 +125,9 @@ https://github.com/huanghaibin-dev/CalendarView
 https://github.com/goweii/AnyLayer
 ```
 
+# 20、logo字母动画
+
+```
+https://github.com/seagazer/animlogoview
+```
+
