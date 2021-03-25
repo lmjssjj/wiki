@@ -188,3 +188,27 @@ public class ManageSpaceActivity extends Activity {
     }
 ```
 
+# 获取指定语言的字符
+
+```
+public String getUsString(){
+    String  name;
+    //获取当前环境的Resources
+    Resources resources = getResources();
+    //获得res资源对象
+    Configuration config = resources.getConfiguration();
+    Locale oldLocale = config.locale;
+    //获得设置对象
+    DisplayMetrics dm = resources.getDisplayMetrics();
+    //  获得屏幕参数：主要是分辨率，像素等。
+    config.locale = Locale.ENGLISH;
+    // 英文
+    resources.updateConfiguration(config, dm);
+    name= resources.getString(R.string.app_name);
+    config.locale = oldLocale;
+    resources.updateConfiguration(config, dm);
+    return  name;
+}
+
+```
+
