@@ -107,6 +107,13 @@ tar解包命令
 tar xvf test.tar
 tar xvf test.tar  -C 指定目录
 
+将 jdk1.8.0_221 文件夹按 98m 进行分卷压缩和解压缩
+压缩：
+tar -czvf - jdk1.8.0_221/ |split -b 98m - jdk1.8.0_221.tar.gz
+解压缩：
+cat jdk1.8.0_221.tar.gza* | tar -xzv
+
+
 bz2包打包命令
 tar jcvf test.bz2  test
 bz2包解包命令
