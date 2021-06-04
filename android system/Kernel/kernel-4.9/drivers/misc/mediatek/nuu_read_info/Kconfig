@@ -1,0 +1,5 @@
+config READ_HARDWARE_INFOMATION
+  bool "READ_HARDWARE_INFOMATION Driver"
+  default n
+  help
+    READ_HARDWARE_INFOMATION
