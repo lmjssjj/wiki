@@ -1,0 +1,5 @@
+host nuu_gitlite_5003
+user gitolite
+hostname 58.215.227.27
+IdentityFile /home/nuu/.ssh/id_rsa
+IdentitiesOnly yes
