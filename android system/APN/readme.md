@@ -132,3 +132,116 @@ int mtu = mPhone.getContext().getResources().getInteger(
     }
 ```
 
+最后，当数据链接建立起来后会通过ConnectivityService.java中的
+
+private voidupdateMtu(LinkProperties newLp, LinkProperties oldLp)接口更新该值到相应的网络端口上
+
+
+
+# 怎样查看和更改手机的MTU值
+
+### 1.用过adb使用ifconfig命令，如下图
+
+```
+C:\Users\Administrator\Desktop>adb shell
+S5502LA:/ $ ifconfig
+wlan0     Link encap:UNSPEC    Driver mt-wifi
+          inet addr:192.168.50.87  Bcast:192.168.50.255  Mask:255.255.255.0
+          inet6 addr: fe80::1ce9:95ff:fe7f:fe10/64 Scope: Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1212 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:996 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:3000
+          RX bytes:506041 TX bytes:273575
+
+dummy0    Link encap:UNSPEC
+          inet6 addr: fe80::f004:70ff:fe41:1f20/64 Scope: Link
+          UP BROADCAST RUNNING NOARP  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:12 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 TX bytes:840
+
+p2p0      Link encap:UNSPEC    Driver mt-wifi
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 TX bytes:0
+
+lo        Link encap:UNSPEC
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope: Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1080 TX bytes:1080
+
+```
+
+
+
+### 2.通过命令更改手机的mtu值
+
+```
+更改网卡MTU 值格式： ip link set dev X mtu N 回车 （X=网卡名称，如wlan0，rmnet_data1; N=mtu的值），下面演示更改rment_data7的mtu值：
+```
+
+```
+S5502LA:/ $ ifconfig lo
+lo        Link encap:UNSPEC
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope: Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1080 TX bytes:1080
+
+S5502LA:/ $ ip link set dev lo mtu 1500
+request send failed: Permission denied
+C:\Users\Administrator\Desktop>adb root
+restarting adbd as root
+
+C:\Users\Administrator\Desktop>adb remount
+remount succeeded
+
+C:\Users\Administrator\Desktop>adb shell
+S5502LA:/ # ip link set dev lo mtu 1500
+
+127|S5502LA:/ # ifconfig lo
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope: Host
+          UP LOOPBACK RUNNING  MTU:1500  Metric:1
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:1080 TX bytes:1080
+
+S5502LA:/ #
+```
+
+注意：这个命令修改的值是临时的，链路承载重置，开关机等都会使其还原。
+
+### 3.net log里面查看mtu的值
+
+```
+我们先来看一个概念MSS
+
+MSS：maximumsegment size，最大分节大小，为TCP数据包每次传输的最大数据分段大小，一般由发送端向对端TCP通知对端在每个分节中能发送的最大TCP数据
+
+在wireshark中我们可以查找到mss的值，再根据mss换算出mtu，换算公式如下：
+
+MTU = MSS + 20 Byte (IP头部)+20 Byte(TCP头部)， 如：我们查找mss为1460，则相应的mtu大小应为1460+20+20=1500.
+
+在wireshark中一般在tcp三次握手时我都可以看到mss的值。如下图
+```
+
+```
+7647392 →80[SYN] Seq=0 win=65535 Len=0 MSS=1460 SACK_PERN=1 TSval=475377 TSecr=0 WS=25656 40237→ 80[ACK] Seq=55 Ack=334 win=88832 Len=0
+6847392→80[ACK] Seq=1 Ack=1 Win=87808 Len=0 TSval-475382 TSecr=2423962870
+
+```
+
