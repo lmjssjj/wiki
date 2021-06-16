@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WizardScript xmlns:wizard="http://schemas.android.com/apk/res/com.google.android.setupwizard"
+    wizard:version="2">
+    <WizardAction
+        id="oem_pre_setup"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.OEM_PRE_SETUP;end" />
+    <WizardAction
+        id="welcome"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.WELCOME;end">
+        <result
+            wizard:action="check_user_unlock_qr"
+            wizard:name="start_qr_provision"
+            wizard:resultCode="101" />
+        <result
+            wizard:action="check_user_unlock_dpm_user_complete"
+            wizard:name="dpm_user_complete"
+            wizard:resultCode="111" />
+        <result
+            wizard:action="check_user_unlock_demo"
+            wizard:name="demo_mode_flow"
+            wizard:resultCode="102" />
+        <result wizard:action="check_user_unlock" />
+    </WizardAction>
+    <WizardAction
+        id="check_user_unlock_qr"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.CHECK_USER_UNLOCK;end">
+        <result wizard:action="qr_provision_flow" />
+    </WizardAction>
+    <WizardAction
+        id="check_user_unlock_dpm_user_complete"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.CHECK_USER_UNLOCK;end">
+        <result wizard:action="oem_post_setup" />
+    </WizardAction>
+    <WizardAction
+        id="check_user_unlock_demo"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.CHECK_USER_UNLOCK;end">
+        <result wizard:action="demo_mode_start" />
+    </WizardAction>
+    <WizardAction
+        id="check_user_unlock"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.CHECK_USER_UNLOCK;end">
+        <result wizard:action="sim_missing" />
+    </WizardAction>
+    <WizardAction
+        id="sim_missing"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.SIM_MISSING;end" />
+    <WizardAction
+        id="carrier_setup"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.CARRIER_SETUP;end" />
+    <WizardAction
+        id="sim_setup"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.SIM_SETUP;end" />
+    <WizardAction
+        id="device_owner_warning"
+        wizard:uri="intent:#Intent;action=com.google.android.setupwizard.DEVICE_OWNER_WARNING;end">
+        <result
+            wizard:action="check_frp"
+            wizard:name="skip"
+            wizard:resultCode="1" />
+    </WizardAction>
+    <WizardAction
+        id="factory_reset"
+        wizard:uri="intent:#Intent;action=com.google.android.setupwizard.FACTORY_RESET;end" />
+    <WizardAction
+        id="check_frp"
+        wizard:uri="intent:#Intent;action=com.google.android.setupwizard.CHECK_FRP;end" />
+    <WizardAction
+        id="flow_choice"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.FLOW_CHOICE;end">
+        <result
+            wizard:action="setup_as_new_flow"
+            wizard:name="skip"
+            wizard:resultCode="1" />
+        <result
+            wizard:action="demo_mode_start_verizon"
+            wizard:name="demo_mode_flow"
+            wizard:resultCode="101" />
+    </WizardAction>
+    <WizardAction
+        id="restore_flow"
+        wizard:script="android.resource://com.google.android.setupwizard/xml/wizard_script_restore_flow">
+        <result wizard:action="oem_post_setup" />
+    </WizardAction>
+    <WizardAction
+        id="setup_as_new_flow"
+        wizard:script="android.resource://com.google.android.setupwizard/xml/wizard_script_setup_as_new_flow">
+        <result wizard:action="oem_post_setup" />
+    </WizardAction>
+    <WizardAction
+        id="demo_mode_start"
+        wizard:script="android.resource://com.google.android.setupwizard/xml/wizard_script_demo_mode_flow">
+        <result wizard:action="nuu_setup_pr" />
+    </WizardAction>
+    <WizardAction
+        id="demo_mode_start_verizon"
+        wizard:script="android.resource://com.google.android.setupwizard/xml/wizard_script_demo_mode_verizon_flow">
+        <result wizard:action="nuu_setup_pr" />
+    </WizardAction>
+    <WizardAction
+        id="qr_provision_flow"
+        wizard:script="android.resource://com.google.android.setupwizard/xml/wizard_script_qr_provision_flow" />
+    <WizardAction
+        id="oem_post_setup"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.OEM_POST_SETUP;end" />
+
+    <!--nuu custom pager-->
+    <WizardAction
+        id="nuu_setup_pr"
+        wizard:uri="intent:#Intent;action=com.nuumobile.nuucare.NUU_SUW_PR;end">
+        <result wizard:action="nuu_setup" />
+    </WizardAction>
+    <WizardAction
+        id="nuu_setup"
+        wizard:uri="intent:#Intent;action=com.nuumobile.nuucare.NUU_SUW;end">
+        <result wizard:action="exit" />
+    </WizardAction>
+    <!---->
+
+    <WizardAction
+        id="exit"
+        wizard:uri="intent:#Intent;action=com.android.setupwizard.EXIT;end" />
+</WizardScript>

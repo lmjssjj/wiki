@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SetupWizardExt</string>
+
+    <!--sw-->
+    <string name="wizard_script_uri">android.resource://com.lmjssjj.setupwizardext/raw/wizard_script</string>
+
+</resources>
