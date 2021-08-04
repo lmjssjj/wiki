@@ -5,4 +5,30 @@ vendor\mediatek\proprietary\packages\3rd-party\应用的独立目录
 3、
 如果应用中存在so文件时 需要提取so文件到该目录下 并修改对应的mk文件
 4、看实例LBS
-5、需要在编译模块的device.mk  添加 product_pageage += 
+5、需要在编译模块的device.mk  
+添加 PRODUCT_PACKAGES += (if devcie.mk don’t exist use BoardConfig.mk)
+	PRODUCT_PACKAGES += \
+		MmsService \
+		Phone \
+		PhoneService \
+		Telecom 
+
+Android 11 requires 2 additional parameters near the end of Android.mk file:
+LOCAL_SDK_VERSION := system_current
+LOCAL_PRODUCT_MODULE := true
+
+Android.mk (Android 11)
+LOCAL_PATH := $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_MODULE := APK
+LOCAL_SRC_FILES := News.apk
+LOCAL_MODULE_CLASS := APPS
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_CERTIFICATE := PRESIGNED
+LOCAL_PRIVILEGED_MODULE := true
+
+LOCAL_SDK_VERSION := system_current
+LOCAL_PRODUCT_MODULE := true
+
+include $(BUILD_PREBUILT)
