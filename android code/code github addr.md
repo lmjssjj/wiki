@@ -8,5 +8,7 @@ https://github.com/crosswall/Android-Coverflow //画廊
 https://github.com/ChenLittlePing/RecyclerCoverFlow   //画廊
 https://github.com/dolphinwang/ImageCoverFlow //画廊
 https://github.com/bingoogolapple/BGARefreshLayout-Android  //下拉刷新
+https://github.com/svga/SVGAPlayer-Android //svga 动画
+	https://github.com/kongpf8848/Animation  //动画
 ```
 

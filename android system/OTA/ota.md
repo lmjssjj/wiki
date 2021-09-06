@@ -3,7 +3,7 @@
 ```
 编译系统
 全包
-    ①$ . build/envsetup.sh
+    ①$ .build/envsetup.sh
     ②$ lunch 然后选择你需要的配置
     ③$ make otapackage
 ```
