@@ -50,3 +50,44 @@ adb shell screenrecord --time-limit 10 --verbose /sdcard/demo.mp4
 adb shell atrace -z -t 8 -b 8192 gfx input am wm sched freq idle load binder_driver binder_lock view > settings.atrace
 ```
 
+## 系统settings 属性 查看
+
+```
+adb shell settings list global
+adb shell settings list secure
+adb shell settings list system
+
+```
+
+## 强制系统进入闲置模式
+
+```
+adb shell dumpsys deviceidle force-idle
+```
+
+## 系统退出闲置模式
+
+```
+adb shell dumpsys deviceidle unforce
+```
+
+## 重新激活设备
+
+```
+adb shell dumpsys battery reset
+```
+
+## 强制应用进入应用待机模式
+
+```
+adb shell dumpsys battery unplug
+adb shell am set-inactive <packageName> true
+```
+
+## 命令模拟唤醒您的应用
+
+```
+adb shell am set-inactive <packageName> false
+adb shell am get-inactive <packageName>
+```
+
