@@ -44,9 +44,9 @@ for (int i = 0; i < childCount; i++) {
 }
 ```
 
-# textview跑马灯
+# textview跑马灯(reclyview)
 
-```
+```java
 1、XML配置
 
  Textview 一定要用 android:singleLine="true"。因为这个方法过时了，就用  android:lines="1".怎么搞都没用。
@@ -89,7 +89,7 @@ public void onBindViewHolder(MainListHolder holder, int position) {
 
 # 应用崩溃重启
 
-```
+```java
 private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
         @Override
         public void uncaughtException(Thread t, Throwable e) {
@@ -113,7 +113,7 @@ private Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHa
 
 # Userid
 
-```
+```java
 mPackageManager = context.getPackageManager();
         mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
         mUserId = UserHandle.myUserId();
@@ -190,7 +190,7 @@ public class ManageSpaceActivity extends Activity {
 
 # 获取指定语言的字符
 
-```
+```java
 public String getUsString(){
     String  name;
     //获取当前环境的Resources
@@ -210,5 +210,66 @@ public String getUsString(){
     return  name;
 }
 
+```
+
+# 判断是否为java进程
+
+```java
+public static boolean isJavaProcess(int pid) {
+        if (pid <= 0) {
+            return false;
+        }
+        if (bf == null) {
+            bf = Process.getPidsForCommands(new String[]{"zygote64", "zygote"});
+        }
+        if (bf != null) {
+            int parentPid = Process.getParentPid(pid);
+            for (int i2 : bf) {
+                if (parentPid == i2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+```
+
+# 监听事件UEventObserver
+
+使用poll机制来监测我们的事件节点
+
+frameworks\base\core\java\android\os\UEventObserver.java
+
+android.os.UEventObserver
+
+framework中想要监听底层的uevent事件
+
+```java
+// watch for invalid charger messages if the invalid_charger switch exists
+if (new File("/sys/devices/virtual/switch/invalid_charger/state").exists()) {
+            UEventObserver invalidChargerObserver = new UEventObserver() {
+        //监听uevent事件 对象，用于监听设备插入无效充电的事件，事件发生时会执行回调函数
+                @Override
+                public void onUEvent(UEvent event) {
+                    final int invalidCharger = "1".equals(event.get("SWITCH_STATE")) ? 1 : 0;
+                    synchronized (mLock) {
+                        if (mInvalidCharger != invalidCharger) {
+                            mInvalidCharger = invalidCharger;
+                        }
+                    }
+                }
+            };
+            invalidChargerObserver.startObserving(
+                    "DEVPATH=/devices/virtual/switch/invalid_charger");
+}
+```
+
+```
+eg:
+"DEVPATH=/devices/virtual/misc/cpu_loading"
+"DEVPATH=/devices/virtual/android_usb/android0"
+"DEVPATH=/devices/virtual/misc/usb_accessory"
+"DEVPATH=/devices/virtual/misc/mtklmk"
 ```
 
