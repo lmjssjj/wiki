@@ -85,7 +85,8 @@
 PRODUCT_COPY_FILES += device/mediateksample/k61v1_32_bsp_hdp/device_owner_2.xml:/system/device_owner_2.xml
 PRODUCT_COPY_FILES += device/mediateksample/k61v1_32_bsp_hdp/device_policies.xml:/system/device_policies.xml
 
-在\system\core\rootdir\init.rc  （on post-fs-data） 里面复制文件到/data分区 并设置权限
+在\system\core\rootdir\init.rc(此目录每次重启都会执行不能在这个目录下修改，应该在device目录下)  
+（on post-fs-data） 里面复制文件到/data分区 并设置权限
 	#deviceowner
 	copy /system/device_owner_2.xml /data/system/device_owner_2.xml
 	chmod 0600 /data/system/device_owner_2.xml
@@ -93,5 +94,10 @@ PRODUCT_COPY_FILES += device/mediateksample/k61v1_32_bsp_hdp/device_policies.xml
 	copy /system/device_policies.xml /data/system/device_policies.xml
 	chmod 0600 /data/system/device_policies.xml
 	chown system system /data/system/device_policies.xml
+
+可以通过预置apk方式将文件预置到指定位置
+示例：
 ```
+
+[]: ./deviceowner
 

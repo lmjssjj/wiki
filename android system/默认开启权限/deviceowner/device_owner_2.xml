@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<root>
+<device-owner package="com.lmjssjj.sytemutils" name="name" component="com.lmjssjj.sytemutils/com.lmjssjj.sytemutils.deviceownertest.DeviceOwnerReceiver" userRestrictionsMigrated="true" canAccessDeviceIds="true" />
+<device-owner-context userId="0" />
+</root>

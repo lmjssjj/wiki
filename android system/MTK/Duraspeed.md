@@ -59,3 +59,39 @@ public AmsExtImpl() {
 }
 ```
 
+
+
+
+
+```java
+//com.mediatek.duraspeed.manager.DuraSpeedService.java
+ private class a extends ContentObserver {
+        public a(Handler handler) {
+            super(handler);
+        }
+
+        public void onChange(boolean z, Uri uri) {
+            boolean z2 = false;
+            if (Settings.Global.getInt(DuraSpeedService.this.mContext.getContentResolver(), "setting.duraspeed.enabled", 0) == 1) {
+                z2 = true;
+            }
+            DuraSpeedService.this.m = z2;
+  
+            if (z2) {
+                DuraSpeedService.this.CpuMonitor.startObserving();
+                DuraSpeedService.this.MemoryMonitor.startObserving();
+            } else {
+                DuraSpeedService.this.CpuMonitor.stopObserving();
+                DuraSpeedService.this.MemoryMonitor.stopObserving();
+            }
+            DuraSpeedService.this.p.a(z2);
+        }
+    }
+
+  public void onSystemReady() {
+                    this.mContext.getContentResolver().registerContentObserver(Settings.Global.getUriFor("setting.duraspeed.enabled"), false, new a(this.p));
+     
+    }
+
+```
+

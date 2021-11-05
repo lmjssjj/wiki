@@ -273,3 +273,48 @@ eg:
 "DEVPATH=/devices/virtual/misc/mtklmk"
 ```
 
+# 创建数据库db文件
+
+```java
+public static abstract class OpenHelper extends DatabaseOpenHelper {
+    public OpenHelper(Context context, String name) {
+        super(context, name, SCHEMA_VERSION);
+    }
+
+    public OpenHelper(Context context, String name, CursorFactory factory) {
+        super(context, name, factory, SCHEMA_VERSION);
+    }
+
+    @Override
+    public void onCreate(Database db) {
+        createAllTables(db, false);
+    }
+}
+/**
+     * 获取可读数据库
+     */
+    private SQLiteDatabase getReadableDatabase() {
+        if (openHelper == null) {
+            openHelper = new DevOpenHelper(context, dbName, null);
+        }
+        return openHelper.getReadableDatabase();
+    }
+    /**
+     * 获取可写数据库
+     */
+    private SQLiteDatabase getWritableDatabase() {
+        if (openHelper == null) {
+            openHelper = new DevOpenHelper(context, dbName, null);
+        }
+        return openHelper.getWritableDatabase();
+    }
+```
+
+```java
+public BaseDaoFactory() {
+        //新建数据库
+        sqliteDatabasePath = "path/user.db";
+        sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(sqliteDatabasePath, null);
+}
+```
+
