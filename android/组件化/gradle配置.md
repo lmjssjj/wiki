@@ -27,3 +27,27 @@ ext {  //extend
 }
 ```
 
+
+
+在gradle中为生成的BuildConfig添加属性
+
+```
+android {
+
+    buildTypes {
+        release {      
+            buildConfigField 'boolean','is_application',rootProject.ext.android.is_application.toString()
+        }
+        advanced{
+            buildConfigField 'boolean','is_application',rootProject.ext.android.is_application.toString()
+        }
+        debug{
+            buildConfigField 'boolean','is_application',rootProject.ext.android.is_application.toString()
+        }
+    }
+}
+
+public final class BuildConfig {
+    public static final boolean is_application = false;
+}
+```
