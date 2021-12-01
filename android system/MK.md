@@ -168,6 +168,18 @@ LOCAL_PRIVILEGED_MODULE 决定了其编译后的在ROM中的安装位置：
 ## Demo
 
 ```
+include $(CLEAR_VARS)
+LOCAL_MODULE := device_owner_2.xml
+LOCAL_MODULE_CLASS := DATA
+# This will install the file in /data/system
+LOCAL_MODULE_PATH := $(TARGET_OUT_DATA)/system
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+include $(BUILD_PREBUILT)
+```
+
+
+
+```
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 

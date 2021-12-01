@@ -1,0 +1,41 @@
+<scheme name="Default" version="142" parent_scheme="Default">
+  <option name="FONT_SCALE" value="1.0" />
+  <metaInfo>
+    <property name="created">2021-11-24T10:38:00</property>
+    <property name="ide">AndroidStudio</property>
+    <property name="ideVersion">2020.3.1.22</property>
+    <property name="modified">2021-11-24T10:38:11</property>
+    <property name="originalScheme">_@user_Default</property>
+  </metaInfo>
+  <option name="LINE_SPACING" value="1.2" />
+  <option name="EDITOR_FONT_SIZE" value="16" />
+  <option name="EDITOR_FONT_NAME" value="Monospaced" />
+  <option name="CONSOLE_FONT_NAME" value="Monospaced" />
+  <option name="CONSOLE_FONT_SIZE" value="12" />
+  <colors>
+    <option name="CONSOLE_BACKGROUND_KEY" value="c7edcc" />
+  </colors>
+  <attributes>
+    <option name="BOOKMARKS_ATTRIBUTES">
+      <value>
+        <option name="BACKGROUND" value="c7edcc" />
+        <option name="ERROR_STRIPE_COLOR" value="0" />
+      </value>
+    </option>
+    <option name="JAVA_BRACKETS">
+      <value />
+    </option>
+    <option name="JAVA_COMMA">
+      <value />
+    </option>
+    <option name="JAVA_DOT">
+      <value />
+    </option>
+    <option name="TEXT">
+      <value>
+        <option name="FOREGROUND" value="0" />
+        <option name="BACKGROUND" value="c7edcc" />
+      </value>
+    </option>
+  </attributes>
+</scheme>

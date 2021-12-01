@@ -1,0 +1,21 @@
+```
+android 10
+涉及到的类介绍
+Instrumentation
+负责调用Activity和Application生命周期。
+ActivityTaskManagerService
+负责Activity管理和调度等工作。android10中新增的
+ActivityManagerService
+负责管理四大组件和进程，包括生命周期和状态切换。
+ActivityTaskManagerInternal
+ActivityTaskManagerService对外提供的一个抽象类，真正的实现在ActivityTaskManagerService#LocalService
+ActivityThread
+管理应用程序进程中主线程的执行
+ActivityStackSupervisor
+负责所有Activity栈的管理
+TransactionExecutor
+主要作用是执行ClientTransaction
+ClientLifecycleManager
+生命周期的管理调用
+```
+
