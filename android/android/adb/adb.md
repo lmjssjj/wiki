@@ -91,3 +91,17 @@ adb shell am set-inactive <packageName> false
 adb shell am get-inactive <packageName>
 ```
 
+## 查找主Activity
+
+```
+// 首先找到微信的首页Activity:
+$ adb shell dumpsys package com.tencent.mm | grep "android.intent.action.MAIN:" -A 5 
+      android.intent.action.MAIN:
+        8f8990c com.tencent.mm/.ui.LauncherUI filter 3d82835
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+          Category: "android.intent.category.MULTIWINDOW_LAUNCHER"
+          AutoVerify=false
+ // 得到首页Activity为"com.tencent.mm/.ui.LauncherUI"
+```
+
